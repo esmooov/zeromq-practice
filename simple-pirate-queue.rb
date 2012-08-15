@@ -31,7 +31,6 @@ loop do
     m.unshift ""
     w = workers.pop
     m.unshift w
-    workers.unshift w
     puts "Frontend sent me #{m}"
     status = backend.send_strings(m)
   end
@@ -48,6 +47,7 @@ loop do
       workers << addr
       puts "Backend connected at #{addr}"
     else
+      workers.unshift addr
       puts "Backend sent me #{m}"
       frontend.send_strings(m)
     end
