@@ -40,15 +40,16 @@ loop do
   items.each do |i|
     m = []
     i.recv_strings m
+    puts "FOO: #{m}"
     addr = m.shift
     m.shift
     msg = m[0]
     if msg == "\x00"
       workers << addr
-      puts "Backend connected at #{addr}"
+      puts "Backend (#{addr}) connected at #{addr}"
     else
       workers.unshift addr
-      puts "Backend sent me #{m}"
+      puts "Backend (#{addr}) sent me #{m}"
       frontend.send_strings(m)
     end
   end
